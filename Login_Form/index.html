@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        function validateLogin() {
+            var username = document.getElementById("uname").value;
+            var password = document.getElementById("pword").value;
+            var errorMessage = document.getElementById("error-msg");
+
+            if (password !== "12345") {
+                errorMessage.style.display = "block";
+                return false;
+            } else {
+                errorMessage.style.display = "none";
+                alert("Login Successful!");
+                return true;
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(to right, #1e3c72, #2a5298); 
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+        }
+
+        .login-box {
+            width: 380px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .login-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        h4 {
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+
+        .error-message {
+            display: none;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 14px;
+            background-color: rgba(255, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(231, 76, 60, 0.3);
+        }
+
+        .form-label {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 14px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-control:focus {
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            outline: none;
+        }
+
+        .btn-primary {
+            background-color: #1e3c72;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            color: #fff;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: #2a5298;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        @media (max-width: 400px) {
+            .login-box {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h4>LOGIN</h4>
+        <div id="error-msg" class="error-message">INVALID PASSWORD</div>
+        <form onsubmit="return validateLogin()">
+            <div class="mb-3">
+                <label for="uname" class="form-label">Username</label>
+                <input type="text" class="form-control" id="uname" placeholder="Enter your username" required>
+            </div>
+            <div class="mb-3">
+                <label for="pword" class="form-label">Password</label>
+                <input type="password" class="form-control" id="pword" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">LOGIN</button>
+        </form>
+    </div>
+</body>
+</html>

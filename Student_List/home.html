@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"> 
+
+    <style>
+        /* Color Theme */
+        body {
+            background-color: peachpuff;
+        }
+        .card {
+            background: linear-gradient(to right, plum, purple);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .btn-custom {
+            background-color: pink;
+            color: purple;
+            border: none;
+            font-weight: bold;
+        }
+        .btn-custom:hover {
+            background-color: purple;
+            color: white;
+        }
+        .table thead {
+            background-color: purple;
+            color: white;
+        }
+        .modal-content {
+            background: plum;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="card p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2><i class="bi bi-list-ul"></i> Student List</h2>
+            <button class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+                <i class="bi bi-plus-circle"></i> Add Student
+            </button>
+        </div>
+        
+        <!-- Search Box -->
+        <input type="text" id="search" class="form-control mb-3" placeholder="🔍 Search students..." onkeyup="filterTable()">
+
+        <!-- Student Table -->
+        <div class="table-responsive">
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Last Name</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Course</th>
+                        <th>Year</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTable">
+                    <!-- Dynamic Student Data -->
+                </tbody>
+            </table>
+            <p class="text-center text-muted mt-3" id="noDataMsg">No students available.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Add Student Modal -->
+<div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-person-plus"></i> Add Student</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="studentId" class="form-control mb-2" placeholder="Student ID">
+                <input type="text" id="lastName" class="form-control mb-2" placeholder="Last Name">
+                <input type="text" id="firstName" class="form-control mb-2" placeholder="First Name">
+                <input type="text" id="middleName" class="form-control mb-2" placeholder="Middle Name">
+                <input type="text" id="course" class="form-control mb-2" placeholder="Course">
+                <input type="text" id="year" class="form-control mb-2" placeholder="Year">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-custom" onclick="addStudent()">Add Student</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function filterTable() {
+        let searchInput = document.getElementById('search').value.toLowerCase();
+        let rows = document.querySelectorAll('#studentTable tr');
+        let found = false;
+
+        rows.forEach(row => {
+            let text = row.innerText.toLowerCase();
+            if (text.includes(searchInput)) {
+                row.style.display = '';
+                found = true;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        document.getElementById('noDataMsg').style.display = found ? 'none' : 'block';
+    }
+
+    function loadStudents() {
+        let students = JSON.parse(localStorage.getItem('students')) || [];
+        let tableBody = document.getElementById('studentTable');
+        tableBody.innerHTML = '';
+
+        if (students.length === 0) {
+            document.getElementById('noDataMsg').style.display = 'block';
+            return;
+        } else {
+            document.getElementById('noDataMsg').style.display = 'none';
+        }
+
+        students.forEach((student, index) => {
+            let row = `
+                <tr>
+                    <td>${student.studentId}</td>
+                    <td>${student.lastName}</td>
+                    <td>${student.firstName}</td>
+                    <td>${student.middleName}</td>
+                    <td>${student.course}</td>
+                    <td>${student.year}</td>
+                    <td>
+                        <button class="btn btn-sm btn-warning" onclick="editStudent(${index})">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteStudent(${index})">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    function addStudent() {
+        let studentId = document.getElementById('studentId').value;
+        let lastName = document.getElementById('lastName').value;
+        let firstName = document.getElementById('firstName').value;
+        let middleName = document.getElementById('middleName').value || '-';
+        let course = document.getElementById('course').value;
+        let year = document.getElementById('year').value;
+
+        if (!studentId || !lastName || !firstName || !course || !year) {
+            alert("Please fill in all required fields!");
+            return;
+        }
+
+        let studentData = { studentId, lastName, firstName, middleName, course, year };
+        let students = JSON.parse(localStorage.getItem('students')) || [];
+        students.push(studentData);
+        localStorage.setItem('students', JSON.stringify(students));
+
+        alert('Student added successfully!');
+        document.getElementById('addStudentModal').click(); 
+        loadStudents();
+    }
+
+    function deleteStudent(index) {
+        let students = JSON.parse(localStorage.getItem('students'));
+        if (confirm("Are you sure you want to delete this student?")) {
+            students.splice(index, 1);
+            localStorage.setItem('students', JSON.stringify(students));
+            loadStudents();
+        }
+    }
+
+    function editStudent(index) {
+        alert("Edit functionality coming soon...");
+    }
+
+    document.addEventListener('DOMContentLoaded', loadStudents);
+</script>
+
+</body>
+</html>
