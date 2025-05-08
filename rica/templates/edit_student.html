@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Student{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header text-center">
+                <h3><i class="fas fa-user-edit me-2"></i>Edit Student</h3>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST" action="{{ url_for('edit_student', student_id=student.student_id) }}">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-control" name="first_name" value="{{ student.first_name }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-control" name="last_name" value="{{ student.last_name }}" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" value="{{ student.email }}" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Course</label>
+                            <input type="text" class="form-control" name="course" value="{{ student.course }}" required>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Year Level</label>
+                            <input type="text" class="form-control" name="year_level" value="{{ student.year_level }}" required>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary me-md-2">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Update Student</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

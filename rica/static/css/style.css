@@ -1,0 +1,199 @@
+/* Color Palette */
+:root {
+    --primary-pink: #ffb6c1;  /* Light pink */
+    --secondary-pink: #ff69b4; /* Hot pink */
+    --accent-purple: #d8bfd8; /* Thistle */
+    --light-bg: #fff0f5;      /* Lavender blush */
+    --dark-text: #4a4a4a;     /* Dark gray */
+    --light-text: #ffffff;     /* White */
+    --success-green: #77dd77;  /* Pastel green */
+    --info-blue: #a2d2ff;     /* Light blue */
+    --warning-orange: #ffb347; /* Pastel orange */
+    --danger-red: #ff6961;     /* Pastel red */
+}
+
+/* Base Styles */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--light-bg);
+    color: var(--dark-text);
+    line-height: 1.6;
+    background-image: url('../images/floral-bg.png');
+    background-attachment: fixed;
+    background-size: 400px;
+    background-blend-mode: overlay;
+    background-color: rgba(255, 240, 245, 0.9);
+    min-height: 100vh;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    color: var(--secondary-pink);
+}
+
+/* Navigation */
+.navbar {
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 182, 193, 0.3);
+}
+
+.navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    color: var(--secondary-pink) !important;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    color: var(--dark-text) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--secondary-pink) !important;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 25px;
+    padding: 8px 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--secondary-pink);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-pink);
+    transform: translateY(-2px);
+}
+
+.btn-outline-primary {
+    border: 2px solid var(--secondary-pink);
+    color: var(--secondary-pink);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--secondary-pink);
+    color: white;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: var(--primary-pink);
+    color: white;
+    font-weight: 600;
+    border-bottom: none;
+}
+
+/* Forms */
+.form-control {
+    border-radius: 25px;
+    padding: 10px 15px;
+    border: 1px solid #e0c8d1;
+}
+
+.form-control:focus {
+    border-color: var(--secondary-pink);
+    box-shadow: 0 0 0 0.25rem rgba(255, 105, 180, 0.25);
+}
+
+/* Alerts */
+.alert {
+    border-radius: 10px;
+    border: none;
+}
+
+.alert-success {
+    background-color: var(--success-green);
+    color: white;
+}
+
+.alert-danger {
+    background-color: var(--danger-red);
+    color: white;
+}
+
+.alert-info {
+    background-color: var(--info-blue);
+    color: var(--dark-text);
+}
+
+/* Dashboard */
+.dashboard-header {
+    background: linear-gradient(135deg, rgba(255,182,193,0.8), rgba(216,191,216,0.8));
+    padding: 30px 0;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    color: white;
+}
+
+/* Table */
+.table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table th {
+    background-color: var(--primary-pink);
+    color: white;
+    border: none;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* Footer */
+.footer {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px 0;
+    margin-top: 50px;
+    border-top: 1px solid rgba(255, 182, 193, 0.3);
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animated {
+    animation: fadeIn 0.6s ease forwards;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.5rem;
+    }
+    
+    .dashboard-header h1 {
+        font-size: 1.8rem;
+    }
+}
